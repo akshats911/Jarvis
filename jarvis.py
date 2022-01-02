@@ -10,7 +10,7 @@ import smtplib #(built in)
 import sys
 import pyjokes #(pip install)
 
-mail_list = {"papa":"#dad's email", "mamma":"#mamma's email"}
+mail_list = {"recipent1":"recipent1's email", "recipent2":"recipent2's email"}
 
 engine = pyttsx3.init("sapi5") #sapi5 is like an API... windows' voice
 voices = engine.getProperty("voices") #List of pyttsx.voice.Voice descriptor objects
@@ -54,15 +54,13 @@ def TakeCommand():
     
     return query
 
-# def sendEmail(to, content):
-#     server = smtplib.SMTP("smtp.gmail.com",587) #587 is the modern port for secure SMTP
-#     server.ehlo()
-#     server.starttls()
-#     server.login("akshats911@gmail.com","tacmp@123")
-#     server.sendmail("akshats911@gmail.com",to,content)
-#     server.close()
-
-    
+def sendEmail(to, content):
+    server = smtplib.SMTP("smtp.gmail.com",587) #587 is the modern port for secure SMTP
+    server.ehlo()
+    server.starttls()
+    server.login("YOUR-EMAIL-ID","YOUR-EMAIL-PASSWORD")
+    server.sendmail("YOUR-EMAIL-ID",to,content)
+    server.close()
 
  
 if __name__=="__main__": #this will run only when this file is running.
@@ -92,7 +90,7 @@ if __name__=="__main__": #this will run only when this file is running.
             webbrowser.open_new_tab("https://www.amazon.in")
 
         elif "photos" in query:
-            pic_dir = r"D:\AkshatOP\wallpapers" #give the path to the picture folder
+            pic_dir = r"\gallery" #give the path to the picture folder
             pictures = os.listdir(pic_dir)
             speak("Showing photos, sir.")
             os.startfile(os.path.join(pic_dir,pictures[random.randint(1,25)])) #the randint parameters depend on the number of photos in directory
@@ -112,7 +110,7 @@ if __name__=="__main__": #this will run only when this file is running.
             webbrowser.open_new_tab("https://open.spotify.com")
         
         elif "zoom" in query or "meeting" in query or "video call" in query:
-            zoompath="C:\\Users\\Bhawana Bharadwaj\\AppData\\Roaming\\Zoom\\bin\\Zoom.exe"
+            zoompath="C:\\Users\\Zoom\\bin\\Zoom.exe"
             speak("Starting zoom meetings")
             os.startfile(zoompath)
         
@@ -130,41 +128,11 @@ if __name__=="__main__": #this will run only when this file is running.
                 f.write(query)
                 f.write("\n")
             
-        # elif "send email" in query:
-        #     if "mamma" in query or "mama" in query:
-        #         try:
-        #             speak("What should I write?")
-        #             content = TakeCommand()
-        #             to = mail_list.get("mamma")
-        #             sendEmail(to,content)
-        #             speak("Mail sent, sir.")
-        #         except Exception as e:
-        #             print(e)
-        #             speak("Sorry sir! Unable to send the mail due to some error.")
 
-            # elif "papa" in query:
-            #     try:
-            #         speak("What should I write?")
-            #         content = TakeCommand()
-            #         to = mail_list.get("papa")
-            #         sendEmail(to,content)
-            #         speak("Mail sent, sir.")
-            #     except Exception as e:
-            #         print(e)
-            #         speak("Sorry sir! Unable to send the mail due to some error.")
-            
-            # else:
-            #     try:
-            #         speak("What should I write?")
-            #         content = TakeCommand()
-            #         to = "akshats911@gmail.com"
-            #         sendEmail(to,content)
-            #         speak("Mail sent, sir.")
-            #     except Exception as e:
-            #         print(e)
-            #         speak("Sorry sir! Unable to send the mail due to some error.")
+        elif "send mail" in query:
+            pass
+            #WRITE THE CODE FOR SENDING AN EMAIL TO THE ADDRESSES GIVEN IN MAIL_LIST DICTIONARY
 
-        #exit code
         elif "quit" in query or "exit" in query or "stop" in query or "shut up" in query or "goodbye" in query:
             speak("Goodbye sir! See you soon.")
             sys.exit()
